@@ -68,6 +68,7 @@ public class TestDataInitializer {
                 "HD-2658", 3, 4));
 
         session.persist(new Locality("Rīga", "", ""));
+        session.persist(new Locality("Ventspils", "", ""));
 
         transaction.commit();
     }

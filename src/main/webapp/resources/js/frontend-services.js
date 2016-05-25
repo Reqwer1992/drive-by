@@ -56,8 +56,6 @@ angular.module('frontendServices', [])
 
             saveMeals: function(dirtyMeals) {
                 var deferred = $q.defer();
-                console.log("Dirty meals");
-                console.log(dirtyMeals);
                 $http({
                     method: 'POST',
                     url: '/meal',
@@ -71,7 +69,29 @@ angular.module('frontendServices', [])
                     if (response.status == 200) {
                         deferred.resolve();
                     } else {
-                    deferred.reject("Error saving meals: " + response.data);
+                        deferred.reject("Error saving meals: " + response.data);
+                    }
+                });
+
+                return deferred.promise;
+            },
+
+            autocomplete: function(searchStr){
+                var deferred = $q.defer();
+                $http({
+                    method: 'POST',
+                    url: '/autocomplete',
+                    data: searchStr,
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "text/plain, application/json"
+                    }
+                })
+                .then(function (response) {
+                    if (response.status == 200) {
+                        deferred.resolve();
+                    } else {
+                        deferred.reject("Error while autocompleting: " + response.data);
                     }
                 });
 

@@ -15,14 +15,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 /**
  * Created by alex on 16.10.5.
@@ -47,14 +46,16 @@ public class AutocompleteRestWebServiceTest {
 
     @Test
     public void testAutocomplete() throws Exception {
-            ResultActions r = mockMvc.perform(get("/autocomplete?predicate=Rīga")
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON))
-                    .andDo(print())
-                    .andExpect(status().isOk());
+        ResultActions r = mockMvc.perform(post("/autocomplete")
+                .contentType("application/json;charset=UTF-8")
+                .content("rī")
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
 
-            r.andDo(print()).andExpect(status().isOk())
-                    .andExpect(content().contentType("application/json;charset=UTF-8"))
-                    .andExpect(jsonPath("$.localities[0]").value("Rīga"));
+        r.andDo(MockMvcResultHandlers.print());
+        r.andDo(print()).andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;charset=UTF-8"))
+                .andExpect(jsonPath("$.fromLocalities[0]").value("Rīga"));
     }
 }

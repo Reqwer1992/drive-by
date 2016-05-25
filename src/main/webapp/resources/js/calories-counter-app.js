@@ -284,6 +284,7 @@ angular.module('caloriesCounterApp', ['editableTableWidgets', 'frontendServices'
                 $scope.vm.errorMessages = [];
 
                 // save all new items plus the ones that where modified
+                console.log(saveAll);
                 MealService.saveMeals(saveAll).then(function () {
                         $scope.search($scope.vm.currentPage);
                         showInfoMessage("Changes saved successfully");

@@ -1,7 +1,6 @@
 package calories.tracker.config.root;
 
 
-import calories.tracker.app.init.TestDataInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -27,16 +26,16 @@ import java.util.Map;
 @EnableTransactionManagement
 public class DevelopmentConfiguration {
 
-    @Bean(initMethod = "init")
-    public TestDataInitializer initTestData() {
-        return new TestDataInitializer();
-    }
+//    @Bean(initMethod = "init")
+//    public TestDataInitializer initTestData() {
+//        return new TestDataInitializer();
+//    }
 
     @Bean(name = "datasource")
     public DriverManagerDataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/driveby?loglevel=0");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/driveby?useUnicode=true&connectionCollation=utf8_general_ci&characterSetResults=utf8");
         dataSource.setUsername("admin");
         dataSource.setPassword("123");
         return dataSource;
@@ -52,7 +51,7 @@ public class DevelopmentConfiguration {
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 
         Map<String, Object> jpaProperties = new HashMap<String, Object>();
-        jpaProperties.put("hibernate.hbm2ddl.auto", "create");
+        jpaProperties.put("hibernate.hbm2ddl.auto", "validate");
         jpaProperties.put("hibernate.show_sql", "true");
         jpaProperties.put("hibernate.format_sql", "true");
         jpaProperties.put("hibernate.use_sql_comments", "true");

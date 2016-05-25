@@ -9,15 +9,21 @@
     <link rel="stylesheet" href="/resources/public/css/calories-tracker.css">
     <script src="../bower_components/angular/angular.min.js"></script>
     <script src="../bower_components/angular/angular-cookies.js"></script>
+    <script src="../bower_components/spring-security-csrf-token-interceptor/dist/spring-security-csrf-token-interceptor.min.js"></script>
     <script src="js/search_controller.js"></script>
     <script src="js/services.js"></script>
 </head>
 <body ng-app="SearchApp" ng-controller="SearchCtrl">
 <div>
-    <div>
-        <h1>{{greeting}}</h1>
-    </div>
-    <form ng-submit="onSearch()" novalidate>
+    <form class="form-container" ng-submit="onSearch()" novalidate>
+        <input list="fromLocalities" placeholder="From" ng-model="from" ng-model-options="{debounce: 1000}" class="search-input" />
+        <datalist id="fromLocalities">
+            <option ng-repeat="item in fromLocalities" value="{{ item }}"></option>
+        </datalist>
+        <input list="toLocalities" placeholder="To" ng-model="to" ng-model-options="{debounce: 1000}" class="search-input" />
+        <datalist id="toLocalities">
+            <option ng-repeat="item in toLocalities" value="{{ item }}"></option>
+        </datalist>
         <button type="submit" class="pure-button pure-input-1 pure-button-primary">Search</button>
     </form>
 </div>

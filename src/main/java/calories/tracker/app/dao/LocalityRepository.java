@@ -32,11 +32,7 @@ public class LocalityRepository {
         searchQuery.select(searchRoot);
 
         List<Predicate> predicates = new ArrayList<Predicate>();
-//        if(from) {
-            predicates.add(cb.equal(searchRoot.<String>get("title"), predicate));
-//        }else{
-//            predicates.add(cb.like(searchRoot.<String>get("driveTo"), predicate));
-//        }
+        predicates.add(cb.like(cb.upper(searchRoot.<String>get("title")), predicate.toUpperCase() + "%"));
 
         searchQuery.where(predicates.toArray(new Predicate[]{}));
         TypedQuery<Locality> filterQuery = em.createQuery(searchQuery);

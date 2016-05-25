@@ -7,9 +7,9 @@ import calories.tracker.app.services.LocalityService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -24,8 +24,8 @@ public class AutocompleteController {
     private LocalityService localityService;
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.GET)
-    public LocalitiesDTO autoComplete(@RequestParam(value = "predicate") String predicate) {
+    @RequestMapping(method = RequestMethod.POST)
+    public LocalitiesDTO autoComplete(@RequestBody String predicate) {
 
         SearchResult<Locality> result = localityService.findLocalities(predicate);
         return LocalitiesDTO.mapFromLocalityEntities(result.getResult());

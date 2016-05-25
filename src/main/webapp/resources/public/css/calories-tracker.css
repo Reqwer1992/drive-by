@@ -390,6 +390,20 @@ a.logout:hover {
     z-index: -10;
 }
 
+.form-container{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.search-input{
+    border-radius: 10px;
+    height: 3em;
+    width: 20em;
+    padding: 10px;
+    font-size: 16px;
+}
 
 @media screen and (max-width: 585px) {
     .today-calories-container {
