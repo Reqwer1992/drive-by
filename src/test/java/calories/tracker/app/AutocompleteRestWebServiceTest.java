@@ -15,7 +15,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -53,9 +52,9 @@ public class AutocompleteRestWebServiceTest {
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        r.andDo(MockMvcResultHandlers.print());
+//        r.andDo(MockMvcResultHandlers.print());
         r.andDo(print()).andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
-                .andExpect(jsonPath("$.fromLocalities[0]").value("Rīga"));
+                .andExpect(jsonPath("$.localities[0]").value("Rīga"));
     }
 }

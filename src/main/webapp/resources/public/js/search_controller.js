@@ -10,6 +10,7 @@ angular.module('SearchApp', ['ServicesModule', 'ngCookies', 'spring-security-csr
                 window.location.replace('/resources/public/search-results.html');
             };
 
+            //TODO prevent dropdown after choice
             $scope.$watch('from', function (tmpStr){
                 if (!tmpStr || tmpStr.length == 0) return 0;
                 if (tmpStr === $scope.from){

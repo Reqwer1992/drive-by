@@ -391,6 +391,7 @@ a.logout:hover {
 }
 
 .form-container{
+    width: 46em;
     position: absolute;
     top: 50%;
     left: 50%;

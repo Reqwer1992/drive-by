@@ -2,6 +2,7 @@ package calories.tracker.app.controllers;
 
 import calories.tracker.app.dto.DriveDTO;
 import calories.tracker.app.dto.DrivesDTO;
+import calories.tracker.app.dto.SearchDriveDTO;
 import calories.tracker.app.model.Drive;
 import calories.tracker.app.model.SearchResult;
 import calories.tracker.app.services.DriveService;
@@ -72,12 +73,11 @@ public class DriveController {
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.GET, value = "find")
-    public DrivesDTO findDrives(@RequestParam(value = "from") String from,
-                                @RequestParam(value = "to") String to) {
+    @RequestMapping(method = RequestMethod.POST, value = "find")
+    public DrivesDTO findDrives(@RequestBody SearchDriveDTO dto) {
 
 
-        SearchResult<Drive> result = driveService.findDrives(from, to);
+        SearchResult<Drive> result = driveService.findDrives(dto.getFrom(), dto.getTo());
 
         return DrivesDTO.mapFromDrivesEntities(result.getResult());
     }

@@ -20,7 +20,7 @@
         <datalist id="fromLocalities">
             <option ng-repeat="item in fromLocalities" value="{{ item }}"></option>
         </datalist>
-        <input list="toLocalities" placeholder="To" ng-model="to" ng-model-options="{debounce: 1000}" class="search-input" />
+        <input list="toLocalities" placeholder="To" ng-model="to" ng-model-options="{debounce: 500}" class="search-input" />
         <datalist id="toLocalities">
             <option ng-repeat="item in toLocalities" value="{{ item }}"></option>
         </datalist>
