@@ -2,7 +2,8 @@ angular.module('SearchApp', ['ServicesModule', 'ngCookies', 'spring-security-csr
     .controller('SearchCtrl', ['$scope', 'SearchService', '$cookieStore',
         function($scope, SearchService, $cookieStore) {
 
-            //$scope.fromLocalities = ["Rīga", "Ventspils"];
+            $scope.fromLocalities = [];
+            $scope.toLocalities = [];
 
             $scope.onSearch = function(){
                 $cookieStore.put('from', $scope.from);
@@ -10,12 +11,14 @@ angular.module('SearchApp', ['ServicesModule', 'ngCookies', 'spring-security-csr
                 window.location.replace('/resources/public/search-results.html');
             };
 
-            //TODO prevent dropdown after choice
             $scope.$watch('from', function (tmpStr){
                 if (!tmpStr || tmpStr.length == 0) return 0;
                 if (tmpStr === $scope.from){
+                    $scope.fromLocalities = [];
                     SearchService.autocomplete(tmpStr).then(function(data){
-                        $scope.fromLocalities = data.localities;
+                        if(data.localities.indexOf(tmpStr) < 0){
+                            $scope.fromLocalities = data.localities;
+                        }
                     });
                 }
             });
@@ -23,8 +26,12 @@ angular.module('SearchApp', ['ServicesModule', 'ngCookies', 'spring-security-csr
             $scope.$watch('to', function (tmpStr){
                 if (!tmpStr || tmpStr.length == 0) return 0;
                 if (tmpStr === $scope.to){
+                    $scope.toLocalities = [];
                     SearchService.autocomplete(tmpStr).then(function(data){
-                        $scope.toLocalities = data.localities;
+                        console.log(data);
+                        if(data.localities.indexOf(tmpStr) < 0){
+                            $scope.toLocalities = data.localities;
+                        }
                     });
                 }
             });
