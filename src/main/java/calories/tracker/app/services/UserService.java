@@ -58,7 +58,7 @@ public class UserService {
      * @param password - the user plain text password
      */
     @Transactional
-    public void createUser(String username, String email, String password) {
+    public String createUser(String username, String email, String password) {
 
         assertNotBlank(username, "Username cannot be empty.");
         assertMinimumLength(username, 6, "Username must have at least 6 characters.");
@@ -74,6 +74,7 @@ public class UserService {
         User user = new User(username, new BCryptPasswordEncoder().encode(password), email, DEFAULT_MAX_CAL_PER_DAY);
 
         userRepository.save(user);
+        return user.getUuidStr();
     }
 
     @Transactional(readOnly = true)

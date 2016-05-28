@@ -5,12 +5,15 @@ import calories.tracker.app.dto.NewUserDTO;
 import calories.tracker.app.dto.UserInfoDTO;
 import calories.tracker.app.model.User;
 import calories.tracker.app.services.UserService;
+import calories.tracker.app.util.FileHelper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import java.security.Principal;
 
@@ -28,6 +31,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CommonsMultipartResolver multipartResolver;
 
     @ResponseBody
     @ResponseStatus(HttpStatus.OK)
@@ -49,9 +55,11 @@ public class UserController {
 
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(method = RequestMethod.POST)
-    public void createUser(@RequestBody NewUserDTO user) {
-        userService.createUser(user.getUsername(), user.getEmail(), user.getPlainTextPassword());
+    @RequestMapping(method = RequestMethod.POST, consumes = {"multipart/form-data"})
+    public void createUser(@RequestPart(value = "data") NewUserDTO user,
+                           @RequestPart("profilePicture") MultipartFile profilePicture) {
+        String uuid = userService.createUser(user.getUsername(), user.getEmail(), user.getPlainTextPassword());
+        FileHelper.saveFile(uuid, profilePicture);
     }
 
 

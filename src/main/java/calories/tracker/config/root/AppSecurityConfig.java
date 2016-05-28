@@ -65,13 +65,13 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
             .usernameParameter("username")
             .passwordParameter("password")
             .successHandler(new AjaxAuthenticationSuccessHandler(new SavedRequestAwareAuthenticationSuccessHandler()))
-            .loginPage("/resources/public/login.html")
+            .loginPage("/resources/public/search.html")
             .and()
             .httpBasic()
             .and()
             .logout()
             .logoutUrl("/logout")
-            .logoutSuccessUrl("/resources/public/login.html")
+            .logoutSuccessUrl("/resources/public/search.html")
             .permitAll();
 
         if ("true".equals(System.getProperty("httpsOnly"))) {

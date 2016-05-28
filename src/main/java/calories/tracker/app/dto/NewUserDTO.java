@@ -10,6 +10,7 @@ public class NewUserDTO {
     private String username;
     private String email;
     private String plainTextPassword;
+//    private MultipartFile profilePicture;
 
     public NewUserDTO() {
     }
@@ -37,4 +38,12 @@ public class NewUserDTO {
     public void setPlainTextPassword(String plainTextPassword) {
         this.plainTextPassword = plainTextPassword;
     }
+
+//    public MultipartFile getProfilePicture() {
+//        return profilePicture;
+//    }
+//
+//    public void setProfilePicture(MultipartFile profilePicture) {
+//        this.profilePicture = profilePicture;
+//    }
 }

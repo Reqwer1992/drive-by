@@ -1,7 +1,7 @@
 angular.module('SearchResultsApp', ['ngCookies', 'ServicesModule', 'spring-security-csrf-token-interceptor'])
     .controller('SearchResultsCtrl', ['$scope', '$cookieStore', '$http', 'DriveService',
         function($scope, $cookieStore, $http, DriveService) {
-            $scope.greeting = "Burda6 Aleksandrov";
+            $scope.greeting = "Privet Erik!";
             $scope.destination = $cookieStore.get('to');
             $scope.source = $cookieStore.get('from');
 

@@ -28,7 +28,6 @@ angular.module('SearchApp', ['ServicesModule', 'ngCookies', 'spring-security-csr
                 if (tmpStr === $scope.to){
                     $scope.toLocalities = [];
                     SearchService.autocomplete(tmpStr).then(function(data){
-                        console.log(data);
                         if(data.localities.indexOf(tmpStr) < 0){
                             $scope.toLocalities = data.localities;
                         }
